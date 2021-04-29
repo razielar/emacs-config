@@ -5,9 +5,16 @@
 ** Setup package.el to work with MELPA.
 
 #+BEGIN_SRC emacs-lisp
-
-
+(require 'package)
+(add-to-list 'package-archives
+'("melpa" . "https://melpa.org/packages/"))
+(package-refresh-contents)
+(package-initialize)
 #+END_SRC
 
-
+** Installing use-package
+#+BEGIN_SRC emacs-lisp
+(unless (package-installed-p 'use-package)
+(package-install 'use-package))
+#+END_SRC
 
