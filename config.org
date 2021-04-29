@@ -4,17 +4,32 @@
 * PACKAGE MANAGEMENT
 ** Setup package.el to work with MELPA.
 
-#+BEGIN_SRC emacs-lisp
+#+begin_src emacs-lisp
 (require 'package)
 (add-to-list 'package-archives
 '("melpa" . "https://melpa.org/packages/"))
-(package-refresh-contents)
-(package-initialize)
-#+END_SRC
+(package-refresh-contents) ;; connect to melpa
+(package-initialize) ;; refresh packages
+#+end_src
 
 ** Installing use-package
-#+BEGIN_SRC emacs-lisp
+
+#+begin_src emacs-lisp
 (unless (package-installed-p 'use-package)
 (package-install 'use-package))
-#+END_SRC
+(setq use-package-always-ensure t)
+#+end_src
+
+* THEME
+
+#+begin_src emacs-lisp
+(use-package doom-themes)
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+(load-theme 'doom-one t)
+#+end_src
+
+
+
+
 
