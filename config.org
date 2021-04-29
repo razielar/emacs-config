@@ -21,31 +21,32 @@
 (setq use-package-always-ensure t)
 #+end_src
 
-* FONTS
+; * FONTS
 
-#+begin_src emacs-lisp
-(set-face-attribute 'default nil
-  :font "SauceCodePro Nerd Font 11"
-  :weight 'medium)
-(set-face-attribute 'variable-pitch nil
-  :font "Ubuntu Nerd Font 11"
-  :weight 'medium)
-(set-face-attribute 'fixed-pitch nil
-  :font "SauceCodePro Nerd Font 11"
-  :weight 'medium)
-
-;; (setq-default line-spacing 0.12)
-
-;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
-(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font 11"))
-#+end_src
+;#+begin_src emacs-lisp
+;(set-face-attribute 'default nil
+;  :font "SauceCodePro Nerd Font 11"
+;  :weight 'medium)
+;(set-face-attribute 'variable-pitch nil
+;  :font "Ubuntu Nerd Font 11"
+;  :weight 'medium)
+;(set-face-attribute 'fixed-pitch nil
+;  :font "SauceCodePro Nerd Font 11"
+;  :weight 'medium)
+;
+;;; (setq-default line-spacing 0.12)
+;
+;;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
+;(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font 11"))
+;#+end_src
 
 * GUI SETTINGS
 
 #+begin_src emacs-lisp
-(menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+(menu-bar-mode -1) ; disable menu bar
+(tool-bar-mode -1) ; disable tool bar
+(scroll-bar-mode -1) ; disable scroll-bar
+;; (global-linum-mode) ; show line numbers
 #+end_src
 
 * THEME
@@ -57,4 +58,11 @@
 (load-theme 'doom-one t)
 #+end_src
 
+* WHICH KEY
+
+#+begin_src emacs-lisp
+(use-package which-key
+:ensure t)
+(which-key-mode)
+#+end_src
 
