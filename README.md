@@ -1,1 +1,5 @@
-# emacs-config
+# GNU Emacs configuration 
+
+
+
+
