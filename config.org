@@ -25,6 +25,9 @@
 
 Emacs dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner
 #+begin_src emacs-lisp
+(use-package all-the-icons
+:ensure t)
+
 (use-package dashboard
   :ensure t 
   :init      ;; tweak dashboard config before loading it
@@ -149,5 +152,22 @@ Emacs dashboard is an extensible startup screen showing you recent files, bookma
 (helm-projectile-on)
 #+end_src
 
+* COMPANY
+
+#+begin_src emacs-lisp
+(use-package company
+  :ensure t
+  :config (setq company-frontends nil)
+  :init (add-hook 'after-init-hook 'global-company-mode))
+#+end_src
+
+* SEARCH 
+
+#+begin_src emacs-lisp
+(use-package swiper
+:ensure t)
+(global-unset-key (kbd "C-s"))
+(global-set-key (kbd "C-s") 'swiper)
+#+end_src
 
 
