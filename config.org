@@ -21,9 +21,33 @@
 (setq use-package-always-ensure t)
 #+end_src
 
-; * FONTS
+* DASHBOARD
 
-;#+begin_src emacs-lisp
+Emacs dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner
+#+begin_src emacs-lisp
+(use-package dashboard
+  :ensure t 
+  :init      ;; tweak dashboard config before loading it
+  (setq dashboard-set-heading-icons t)
+  (setq dashboard-set-file-icons t)
+  (setq dashboard-banner-logo-title "Welcome Raziel!")
+  (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+  ;; (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
+  (setq dashboard-center-content nil) ;; set to 't' for centered content
+  (setq dashboard-items '((recents . 5)
+                          (agenda . 5 )
+                          (bookmarks . 3)
+                          (projects . 3)
+                          (registers . 3)))
+  :config
+  (dashboard-setup-startup-hook)
+  (dashboard-modify-heading-icons '((recents . "file-text")
+			      (bookmarks . "book"))))
+#+end_src
+
+* FONTS
+
+#+begin_src emacs-lisp
 ;(set-face-attribute 'default nil
 ;  :font "SauceCodePro Nerd Font 11"
 ;  :weight 'medium)
@@ -38,24 +62,58 @@
 ;
 ;;; Needed if using emacsclient. Otherwise, your fonts will be smaller than expected.
 ;(add-to-list 'default-frame-alist '(font . "SauceCodePro Nerd Font 11"))
-;#+end_src
+#+end_src
 
-* GUI SETTINGS
+* GENERAL KEYBINDINGS
+
+#+begin_src emacs-lisp
+;(use-package general
+;:ensure t
+;:config
+;(general-evil-setup t))
+#+end_src
+
+* GENERAL USER INTERFACE SETTINGS
 
 #+begin_src emacs-lisp
 (menu-bar-mode -1) ; disable menu bar
 (tool-bar-mode -1) ; disable tool bar
 (scroll-bar-mode -1) ; disable scroll-bar
-;; (global-linum-mode) ; show line numbers
+(global-display-line-numbers-mode) ; show line numbers
+;; (global-linum-mode) ;another way to show line numbers
+(setq inhibit-startup-screen t) ; inhibit emacs startup page
+(column-number-mode t) ; add column number
+(global-visual-line-mode t) ; truncated lines
+#+end_src
+
+** Parenthesis 
+
+#+begin_src emacs-lisp
+(use-package paren
+:ensure t)
+(show-paren-mode)
+(use-package rainbow-delimiters
+:ensure t)
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode) ; to start the mode automatically when programming
 #+end_src
 
 * THEME
 
 #+begin_src emacs-lisp
-(use-package doom-themes)
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-(load-theme 'doom-one t)
+;(use-package doom-themes)
+;(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;(load-theme 'doom-one t)
+(use-package monokai-theme)
+(load-theme 'monokai)
+#+end_src
+
+** Modeline
+
+#+begin_src emacs-lisp
+(use-package doom-modeline
+:ensure t)
+(doom-modeline-mode 1)
 #+end_src
 
 * WHICH KEY
@@ -65,4 +123,31 @@
 :ensure t)
 (which-key-mode)
 #+end_src
+
+* WINDOW NAVIGATION
+
+#+begin_src emacs-lisp
+(windmove-default-keybindings 'meta)
+#+end_src
+
+* PROJECTILE
+
+#+begin_src emacs-lisp
+(use-package projectile
+:ensure t
+:config
+(projectile-global-mode 1))
+
+#+end_src
+
+* HELM
+
+#+begin_src emacs-lisp
+(use-package helm-projectile
+:ensure t)
+(setq projectile-completion-system 'helm)
+(helm-projectile-on)
+#+end_src
+
+
 
