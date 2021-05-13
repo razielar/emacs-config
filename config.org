@@ -51,7 +51,7 @@
 
 Emacs dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner
 #+begin_src emacs-lisp
-(use-package all-the-icons
+(use-package all-the-icons-gnus
   :ensure t)
 
   ;; all-the-icons-gnus
