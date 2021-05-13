@@ -170,4 +170,3 @@ Emacs dashboard is an extensible startup screen showing you recent files, bookma
 (global-set-key (kbd "C-s") 'swiper)
 #+end_src
 
-
