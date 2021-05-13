@@ -6,18 +6,18 @@
 ** Setup package.el to work with MELPA.
 
 #+begin_src emacs-lisp
-  ;; (require 'package)
-  ;; (add-to-list 'package-archives
-  ;; '
-  ;; 	     ("melpa" . "https://melpa.org/packages/"))
-  ;; (
-  ;;  package-refresh-contents) ;; connect to melpa
-  ;; (
-  ;; package-initialize) ;; refresh packages
 (require 'package)
-(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
-(package-initialize)
 
+(let* (
+  (no-ssl (and (memq system-type '(windows-nt ms-dos))                                                      
+                     (not (gnutls-available-p))))                                                                 
+  (proto (if no-ssl "http" "http"))                                                                              
+ )                                                                                                                
+   (when no-ssl)                                                                                                  
+   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)                       
+)    
+
+(package-initialize)
 #+end_src
 
 ** Installing use-package
@@ -47,34 +47,11 @@
 (windmove-default-keybindings 'meta)
 #+end_src
 
-* DASHBOARD
+* THEME
 
-Emacs dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner
 #+begin_src emacs-lisp
-(use-package all-the-icons-gnus
-  :ensure t)
-
-  ;; all-the-icons-gnus
-
-    ;; (use-package dashboard
-      ;; :ensure t 
-      ;; :init      ;; tweak dashboard config before loading it
-      ;; (setq dashboard-set-heading-icons t)
-      ;; (setq dashboard-set-file-icons t)
-      ;; (setq dashboard-banner-logo-title "Welcome Raziel!")
-      ;; (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-      ;; (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
-      ;; (setq dashboard-center-content nil) ;; set to 't' for centered content
-      ;; (setq dashboard-items '((recents . 5)
-			      ;; (agenda . 5 )
-			      ;; (bookmarks . 3)
-			      ;; (projects . 3)
-			      ;; (registers . 3)))
-      ;; :config
-      ;; (dashboard-setup-startup-hook)
-      ;; (dashboard-modify-heading-icons '((recents . "file-text")
-				  ;; (bookmarks . "book
-    ;; "))))
+(use-package monokai-theme)
+(load-theme 'monokai)
 #+end_src
 
 
