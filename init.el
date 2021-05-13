@@ -14,6 +14,10 @@
 (column-number-mode t) ; add column number
 (global-visual-line-mode t) ; truncated lines
 
+;; WINDOW NAVIGATION
+(windmove-default-keybindings 'meta)
+
+
 
 
 
