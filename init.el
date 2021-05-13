@@ -5,6 +5,8 @@
 
 
 ;; GENERAL USER INTERFACE SETTINGS
+(package-initialize)
+
 (menu-bar-mode -1) ; disable menu bar
 (tool-bar-mode -1) ; disable tool bar
 (scroll-bar-mode -1) ; disable scroll-bar
@@ -21,5 +23,5 @@
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
 
 ;; THEME
-(load-theme 'monokai)
+(load-theme 'wombat)
 
