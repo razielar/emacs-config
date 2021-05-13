@@ -47,27 +47,28 @@ There are two things you can do about this warning:
 
 Emacs dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner
 #+begin_src emacs-lisp
-(use-package all-the-icons
-:ensure t)
+  (use-package all-the-icons
+  :ensure t)
 
-(use-package dashboard
-  :ensure t 
-  :init      ;; tweak dashboard config before loading it
-  (setq dashboard-set-heading-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-banner-logo-title "Welcome Raziel!")
-  (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
-  ;; (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
-  (setq dashboard-center-content nil) ;; set to 't' for centered content
-  (setq dashboard-items '((recents . 5)
-                          (agenda . 5 )
-                          (bookmarks . 3)
-                          (projects . 3)
-                          (registers . 3)))
-  :config
-  (dashboard-setup-startup-hook)
-  (dashboard-modify-heading-icons '((recents . "file-text")
-			      (bookmarks . "book"))))
+  ;; (use-package dashboard
+    ;; :ensure t 
+    ;; :init      ;; tweak dashboard config before loading it
+    ;; (setq dashboard-set-heading-icons t)
+    ;; (setq dashboard-set-file-icons t)
+    ;; (setq dashboard-banner-logo-title "Welcome Raziel!")
+    ;; (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+    ;; (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
+    ;; (setq dashboard-center-content nil) ;; set to 't' for centered content
+    ;; (setq dashboard-items '((recents . 5)
+			    ;; (agenda . 5 )
+			    ;; (bookmarks . 3)
+			    ;; (projects . 3)
+			    ;; (registers . 3)))
+    ;; :config
+    ;; (dashboard-setup-startup-hook)
+    ;; (dashboard-modify-heading-icons '((recents . "file-text")
+				;; (bookmarks . "book
+  ;; "))))
 #+end_src
 
 
