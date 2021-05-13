@@ -21,5 +21,5 @@
 (set-face-attribute 'default nil :font "Fira Code Retina" :height 120)
 
 ;; THEME
-;; (load-theme 'monokai)
+(load-theme 'monokai)
 
