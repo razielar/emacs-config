@@ -47,6 +47,25 @@
 (setq use-package-always-ensure t)
 #+end_src
 
+* GENERAL USER INTERFACE SETTINGS
+
+#+begin_src emacs-lisp
+(menu-bar-mode -1) ; disable menu bar
+(tool-bar-mode -1) ; disable tool bar
+(scroll-bar-mode -1) ; disable scroll-bar
+(global-display-line-numbers-mode) ; show line numbers
+;; (global-linum-mode) ;another way to show line numbers
+(setq inhibit-startup-screen t) ; inhibit emacs startup page
+(column-number-mode t) ; add column number
+(global-visual-line-mode t) ; truncated lines
+#+end_src
+
+* WINDOW NAVIGATION
+
+#+begin_src emacs-lisp
+(windmove-default-keybindings 'meta)
+#+end_src
+
 * DASHBOARD
 
 Emacs dashboard is an extensible startup screen showing you recent files, bookmarks, agenda items and an Emacs banner
@@ -76,8 +95,5 @@ Emacs dashboard is an extensible startup screen showing you recent files, bookma
 				  ;; (bookmarks . "book
     ;; "))))
 #+end_src
-
-
-
 
 
