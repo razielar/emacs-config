@@ -2,56 +2,41 @@
 #+AUTHOR: Raziel Amador Rios
 
 * PACKAGE MANAGEMENT
-
-** Setup package.el to work with MELPA.
+** Setup package.el to work with MELPA
 
 #+begin_src emacs-lisp
 (require 'package)
-
-(let* (
-  (no-ssl (and (memq system-type '(windows-nt ms-dos))                                                      
-                     (not (gnutls-available-p))))                                                                 
-  (proto (if no-ssl "http" "http"))                                                                              
- )                                                                                                                
-   (when no-ssl)                                                                                                  
-   (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)                       
-)    
-
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-refresh-contents)
 (package-initialize)
 #+end_src
 
 ** Installing use-package
-
 #+begin_src emacs-lisp
 (unless (package-installed-p 'use-package)
-(package-install 'use-package))
-(setq use-package-always-ensure t)
+  (package-install 'use-package))
 #+end_src
 
-* GENERAL USER INTERFACE SETTINGS
-
-#+begin_src emacs-lisp
-(menu-bar-mode -1) ; disable menu bar
-(tool-bar-mode -1) ; disable tool bar
-(scroll-bar-mode -1) ; disable scroll-bar
-(global-display-line-numbers-mode) ; show line numbers
-;; (global-linum-mode) ;another way to show line numbers
-(setq inhibit-startup-screen t) ; inhibit emacs startup page
-(column-number-mode t) ; add column number
-(global-visual-line-mode t) ; truncated lines
-#+end_src
-
-* WINDOW NAVIGATION
-
+* WINDOW NAVIGATION 
 #+begin_src emacs-lisp
 (windmove-default-keybindings 'meta)
 #+end_src
 
-* THEME
-
+* GENERAL USER INTERFACE SETTINGS
 #+begin_src emacs-lisp
-(use-package monokai-theme)
-(load-theme 'monokai)
+(global-display-line-numbers-mode) ; show line numbers
+(tool-bar-mode -1) ; disable tool bar
+(toggle-scroll-bar -1) ; disable toogle bar
+(menu-bar-mode -1) ; disable menu bar
+(setq inhibit-startup-screen t) ; inhibit emacs startup page
+(column-number-mode t) ; add column number
 #+end_src
 
+* THEME
+#+begin_src emacs-lisp
+(use-package monokai-pro-theme
+	     :ensure t
+	     :config
+	     (load-theme 'monokai-pro t))
+#+end_src
 
