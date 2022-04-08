@@ -102,6 +102,15 @@ To manage projects in Emacs.
 	     (projectile-global-mode 1))
 #+end_src
 
+** SWIPER
+Greatly improve search using swiper.
+#+begin_src emacs-lisp
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)))
+#+end_src
+
 * EMACS INFORMATION
 
 ** Which-key
@@ -127,8 +136,20 @@ Show and highlight the corresponding parenthesis. Additionally, add color to the
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 #+end_src
 
-** Improve Search
+* LANGUAGE SUPPORT
+
+Language support for markdown, dockerfiles, etc.
 #+begin_src emacs-lisp
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+
+(use-package dockerfile-mode
+  :ensure t
+  :mode ("Dockerfile\\'" . dockerfile-mode))
 
 #+end_src
+
+
 
