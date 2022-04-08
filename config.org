@@ -102,7 +102,12 @@ To manage projects in Emacs.
 	     (projectile-global-mode 1))
 #+end_src
 
-** SWIPER
+** COMPANY or IVY
+#+begin_src emacs-lisp
+
+#+end_src
+
+** Swiper
 Greatly improve search using swiper.
 #+begin_src emacs-lisp
 (use-package swiper
@@ -149,6 +154,14 @@ Language support for markdown, dockerfiles, etc.
   :ensure t
   :mode ("Dockerfile\\'" . dockerfile-mode))
 
+#+end_src
+
+* R Programming
+
+To program with R in Emacs, we need ESS
+#+begin_src emacs-lisp
+(use-package ess
+  :ensure t)
 #+end_src
 
 
