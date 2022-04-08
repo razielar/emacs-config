@@ -2,8 +2,8 @@
 #+AUTHOR: Raziel Amador Rios
 
 * PACKAGE MANAGEMENT
-** Setup package.el to work with MELPA
 
+** Setup package.el to work with MELPA
 #+begin_src emacs-lisp
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
@@ -23,13 +23,56 @@
 #+end_src
 
 * GENERAL USER INTERFACE SETTINGS
+
+** Basic Emacs UI
+Show: line-numbers, & column-number. Disable: too-bar, toogle-bar, menu-bar, & emacs-startup-page. 
 #+begin_src emacs-lisp
 (global-display-line-numbers-mode) ; show line numbers
+(column-number-mode t) ; add column number
 (tool-bar-mode -1) ; disable tool bar
 (toggle-scroll-bar -1) ; disable toogle bar
 (menu-bar-mode -1) ; disable menu bar
 (setq inhibit-startup-screen t) ; inhibit emacs startup page
-(column-number-mode t) ; add column number
+#+end_src
+
+Truncate lines.
+#+begin_src emacs-lisp
+(global-visual-line-mode t)
+#+end_src
+
+** Modeline
+We are using doom-modeline. To work, we need all-the-icons, and then: M-x all-the-icons-install-fonts.
+#+begin_src emacs-lisp
+(use-package all-the-icons
+  :ensure t)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+#+end_src
+
+** Dashboard
+When starting emacs, let's see a Dashboard. We observe the number of loaded packages, 5 recent files, 5 agenda, 3 bookmarks, 3 projects and 3 registers.
+#+begin_src emacs-lisp
+  (use-package dashboard
+    :ensure t 
+    :init      ;; tweak dashboard config before loading it
+    (setq dashboard-set-heading-icons t)
+    (setq dashboard-set-file-icons t)
+    (setq dashboard-banner-logo-title "Welcome Dr. Raziel")
+    (setq dashboard-startup-banner 'logo) ;; use standard emacs logo as banner
+    ;; (setq dashboard-startup-banner "~/.emacs.d/emacs-dash.png")  ;; use custom image as banner
+    (setq dashboard-center-content nil) ;; set to 't' for centered content
+    (setq dashboard-items '((recents . 5)
+			    (agenda . 5 )
+			    (bookmarks . 3)
+			    (projects . 3)
+			    (registers . 3)
+    ))
+    :config
+    (dashboard-setup-startup-hook)
+    (dashboard-modify-heading-icons '((recents . "file-text")
+				(bookmarks . "book"))))
 #+end_src
 
 * THEME
@@ -38,5 +81,54 @@
 	     :ensure t
 	     :config
 	     (load-theme 'monokai-pro t))
+#+end_src
+
+* GENERAL KEYBINDIGS
+
+Keybindings using general for buffers, and load file.
+#+begin_src emacs-lisp
+(use-package general
+  :ensure t)
+#+end_src
+
+* CORE EMACS FUNCTIONALITIES
+
+** Projectile
+To manage projects in Emacs. 
+#+begin_src emacs-lisp
+(use-package projectile
+	     :ensure t
+	     :config
+	     (projectile-global-mode 1))
+#+end_src
+
+* EMACS INFORMATION
+
+** Which-key
+Help for Emacs shortcuts.
+#+begin_src emacs-lisp
+(use-package which-key
+  :ensure t)
+(which-key-mode)
+#+end_src
+
+* GENERAL SETUP FOR PROGRAMMING
+
+** Parenthesis
+Show and highlight the corresponding parenthesis. Additionally, add color to the parenthesis
+#+begin_src emacs-lisp
+(use-package paren
+  :ensure t
+  :config
+  (show-paren-mode +1))
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+#+end_src
+
+** Improve Search
+#+begin_src emacs-lisp
+
 #+end_src
 
