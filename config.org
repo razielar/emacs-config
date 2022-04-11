@@ -1,4 +1,4 @@
-#+TITLE: Raziel's Emacs Config
+#+TITLE: EMACS Config
 #+AUTHOR: Raziel Amador Rios
 
 * PACKAGE MANAGEMENT
@@ -129,7 +129,7 @@ Help for Emacs shortcuts.
 * GENERAL SETUP FOR PROGRAMMING
 
 ** Parenthesis
-Show and highlight the corresponding parenthesis. Additionally, add color to the parenthesis
+Show and highlight the corresponding parenthesis. Additionally, add color to the parenthesis and allow autopairing. 
 #+begin_src emacs-lisp
 (use-package paren
   :ensure t
@@ -139,11 +139,15 @@ Show and highlight the corresponding parenthesis. Additionally, add color to the
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+(use-package flex-autopair
+  :ensure t
+  :config
+  (flex-autopair-mode +1))
 #+end_src
 
 * LANGUAGE SUPPORT
 
-Language support for markdown, dockerfiles, etc.
+Language support for markdown, dockerfiles, & yaml files.
 #+begin_src emacs-lisp
 (use-package markdown-mode
   :ensure t
@@ -154,15 +158,174 @@ Language support for markdown, dockerfiles, etc.
   :ensure t
   :mode ("Dockerfile\\'" . dockerfile-mode))
 
+(use-package yaml-mode
+  :ensure t)
 #+end_src
 
-* R Programming
+* R PROGRAMMING
 
-To program with R in Emacs, we need ESS
+To program with R in Emacs, we need ESS.
 #+begin_src emacs-lisp
 (use-package ess
   :ensure t)
 #+end_src
 
+** R custom functions
+
+We have 18 R custom funcitons to work efficiently in Emacs-R.
+#+begin_src emacs-lisp
+; Functions: 
+(defun pipe_R_operator ()
+  "R - %>% operator or pipe operator"
+  (interactive)
+  (just-one-space 1)
+  (insert "%>%")
+  (just-one-space 1))
+
+(defun inicio_setup_R ()
+  "Insert the inicio setup in R"
+  (interactive)
+  (insert "library(tidyverse)\nlibrary(magrittr)\nlibrary(janitor)\noptions(stringsAsFactors = F)")
+  )
+
+(defun ess-head ()
+  "Head n=10 of object"
+  (interactive)
+  (ess-execute (concat "head(" (dotted-symbol-at-point) ", n=10)\n") t))
+
+(defun ess-tail ()
+  "Tail n=10 of object"
+  (interactive)
+  (ess-execute (concat "tail(" (dotted-symbol-at-point) ", n=10)\n") t))
+
+(defun ess-upper-square ()
+  "X[1:5, 1:5]"
+  (interactive)
+  (ess-execute (concat (dotted-symbol-at-point) "[1:5, 1:5]\n") t))
+
+(defun ess-dim ()
+  "dim(X)"
+  (interactive)
+  (ess-execute (concat "dim(" (dotted-symbol-at-point) ")\n") t))
+
+(defun ess-rownames ()
+  "rownames(X)"
+  (interactive)
+  (ess-execute (concat "rownames(" (dotted-symbol-at-point) ")\n") t))
+
+(defun ess-colnames ()
+  "colnames(X)"
+  (interactive)
+  (ess-execute (concat "colnames(" (dotted-symbol-at-point) ")\n") t))
+
+(defun ess-view ()
+  "View(X)"
+  (interactive)
+  (ess-execute (concat "View(" (dotted-symbol-at-point) ")\n") t))
+
+(defun theme_ggplot ()
+  "Insert ggplot theme"
+  (interactive)
+  (insert "theme_set(theme_light())")
+  )
+
+(defun ess-in ()
+  "R %in% operator"
+  (interactive)
+  (just-one-space 1)
+  (insert "%in%")
+  (just-one-space 1))
+
+(defun ess-ls ()
+  "ls()"
+  (interactive)
+  (ess-execute "ls()\n" t))
+
+(defun ess-length ()
+  "length(x)"
+  (interactive)
+  (ess-execute (concat "length(" (dotted-symbol-at-point) ")\n") t))
+
+(defun ess-table-count ()
+  " %>% table(., exclude= NULL)"
+  (interactive)
+  (just-one-space 1)
+  (insert "%>%")
+  (just-one-space 1)
+  (insert "table(., exclude= NULL)")
+  )
+
+(defun dev-off ()
+  "dev.off()"
+  (interactive)
+  (insert "dev.off()")
+  )
+
+(defun pdf-save ()
+  "save a plot as pdf using default conf"
+  (interactive)
+  (insert "pdf(file='', paper='a4r', width=0, height=0)")
+  )
+
+(defun theme-ggtitle ()
+  "Add ggtitle theme: plot.title"
+  (interactive)
+  (insert "plot.title= element_text(hjust = 0.5)")
+  (just-one-space 1)
+  )
+
+(defun regex-digit ()
+  "Add regex for digit"
+  (interactive)
+  (insert "[:digit:]")
+  )
+
+; Function mappings: 
+(use-package ess-mode
+  :bind
+  (:map ess-mode-map
+        ("C-;" . ess-cycle-assign)
+	("C-ñ" . 'pipe_R_operator)
+	("C-c h" . 'ess-head)
+	("C-c t" . 'ess-tail)
+	("C-c u" . 'ess-upper-square)
+	("C-c d" . 'ess-dim)
+	("C-c r" . 'ess-rownames)
+	("C-c c" . 'ess-colnames)
+	("C-c v" . 'ess-view)
+	("C-c i" . 'ess-in)
+	("C-c l" . 'ess-ls)
+	("C-c g" . 'ess-length)
+	("C-c s" . 'inicio_setup_R)
+	("C-c C-t" . 'theme_ggplot)
+	("C-c a" . 'ess-table-count)
+	("C-c C-d" . 'dev-off)
+	("C-c C-s" . 'pdf-save)
+	("C-c C-i" . 'theme-ggtitle)
+	("C-c x" . 'regex-digit)
+	)
+  (:map inferior-ess-mode-map
+        ("C-;" . ess-cycle-assign)
+	("C-;" . ess-cycle-assign)
+	("C-ñ" . 'pipe_R_operator)
+	("C-c h" . 'ess-head)
+	("C-c t" . 'ess-tail)
+	("C-c u" . 'ess-upper-square)
+	("C-c d" . 'ess-dim)
+	("C-c r" . 'ess-rownames)
+	("C-c c" . 'ess-colnames)
+	("C-c v" . 'ess-view)
+	("C-c i" . 'ess-in)
+	("C-c l" . 'ess-ls)
+	("C-c g" . 'ess-length)
+	("C-c s" . 'inicio_setup_R)
+	("C-c C-t" . 'theme_ggplot)
+	("C-c a" . 'ess-table-count)
+	("C-c C-d" . 'dev-off)
+	("C-c C-s" . 'pdf-save)
+	("C-c C-i" . 'theme-ggtitle)
+	("C-c x" . 'regex-digit)
+	))
+#+end_src
 
 
