@@ -93,20 +93,6 @@ Keybindings using general for buffers, and load file.
 
 * CORE EMACS FUNCTIONALITIES
 
-** Projectile
-To manage projects in Emacs. 
-#+begin_src emacs-lisp
-(use-package projectile
-	     :ensure t
-	     :config
-	     (projectile-global-mode 1))
-#+end_src
-
-** COMPANY or IVY
-#+begin_src emacs-lisp
-
-#+end_src
-
 ** Swiper
 Greatly improve search using swiper.
 #+begin_src emacs-lisp
@@ -114,6 +100,73 @@ Greatly improve search using swiper.
   :ensure t
   :bind (("C-s" . swiper)
          ("C-r" . swiper)))
+#+end_src
+
+** COMPANY
+Company is a text completion framework for Emac. Use company mode in all buffers and turn off tooltips.
+#+begin_src emacs-lisp
+(use-package company
+  :ensure t
+  :config (setq company-frontends nil)
+  :init (add-hook 'after-init-hook 'global-company-mode))
+#+end_src
+
+** HEML 
+Helm is an Emacs incremental and narrowing framework. It helps to rapidly complete file names,and buffer names.
+#+begin_src emacs-lisp
+(use-package helm
+  :ensure t)
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t
+)
+
+(setq helm-autoresize-max-height 0)
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
+(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+#+end_src
+
+*** helm-M-x
+Configuration of helm-M-x, M-x key-biding, and make helm-M-x fuzzy. 
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-x") 'helm-M-x)
+(setq helm-M-x-fuzzy-match t) ;; fuzzy matching for helm-M-x
+#+end_src
+
+*** helm-mini 
+Configuration of helm-mini for buffer-list.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x b") 'helm-mini)
+
+(setq helm-buffers-fuzzy-matching t
+      helm-recentf-fuzzy-match    t
+)
+#+end_src
+
+*** helm-find-file
+Configuration of helm-find-file for Find file.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+
+(setq helm-semantic-fuzzy-match t
+      helm-imenu-fuzzy-match    t) 
+(setq helm-locate-fuzzy-match t)
+#+end_src
+
+** Projectile
+To manage projects in Emacs. 
+#+begin_src emacs-lisp
+(use-package projectile
+	     :ensure t
+	     :config
+	     (projectile-global-mode 1))
 #+end_src
 
 * EMACS INFORMATION
