@@ -75,12 +75,31 @@ When starting emacs, let's see a Dashboard. We observe the number of loaded pack
 				(bookmarks . "book"))))
 #+end_src
 
-* THEME
+*** Dashboard in Emacsclient
+This setting ensures that emacsclient always opens on *dashboard* rather than *scratch*.
 #+begin_src emacs-lisp
-(use-package monokai-pro-theme
+(setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+#+end_src
+
+* THEME
+
+We are using monokai-theme as theme. 
+#+begin_src emacs-lisp
+(use-package monokai-theme
 	     :ensure t
 	     :config
-	     (load-theme 'monokai-pro t))
+	     (load-theme 'monokai t))
+
+;(use-package monokai-pro-theme
+;	     :ensure t
+;	     :config
+;	     (load-theme 'monokai-pro t))
+
+;(use-package doom-themes
+;             :ensure t)
+;(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+;      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+;(load-theme 'doom-one t)
 #+end_src
 
 * GENERAL KEYBINDIGS
