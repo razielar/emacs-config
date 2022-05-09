@@ -30,7 +30,7 @@ Show: line-numbers, & column-number. Disable: too-bar, toogle-bar, menu-bar, & e
 (global-display-line-numbers-mode) ; show line numbers
 (column-number-mode t) ; add column number
 (tool-bar-mode -1) ; disable tool bar
-(toggle-scroll-bar -1) ; disable toogle bar
+(scroll-bar-mode -1)
 (menu-bar-mode -1) ; disable menu bar
 (setq inhibit-startup-screen t) ; inhibit emacs startup page
 #+end_src
@@ -244,9 +244,14 @@ To program with R in Emacs, we need ESS.
 
 ** R custom functions
 
-We have 18 R custom funcitons to work efficiently in Emacs-R.
+We have 19 R custom funcitons to work efficiently in Emacs-R.
 #+begin_src emacs-lisp
-; Functions: 
+; Functions:
+(defun dotted-symbol-at-point ()
+  (with-syntax-table (make-syntax-table (syntax-table))
+    (modify-syntax-entry ?. "_")
+    (thing-at-point 'symbol)))
+
 (defun pipe_R_operator ()
   "R - %>% operator or pipe operator"
   (interactive)
