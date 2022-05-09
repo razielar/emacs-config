@@ -400,4 +400,38 @@ We have 18 R custom funcitons to work efficiently in Emacs-R.
 	))
 #+end_src
 
+* ORG
+
+** ORG UI
+
+Set-on: org-indent-mode, org elipsis, and setup *Agenda*.  
+#+begin_src emacs-lisp
+(defun razielar/org-mode-setup ()
+  (org-indent-mode))
+
+(use-package org
+  :ensure t
+  :hook (org-mode . razielar/org-mode-setup)
+  :config
+  (setq org-ellipsis " ▾"
+        org-hide-emphasis-markers t)
+  (setq org-agenda-files '("~/Documents/git_rep/agenda/nennisiwok.org"))
+)
+#+end_src
+
+Setup custom bullet list for ORG.
+#+begin_src emacs-lisp
+(use-package org-bullets
+  :ensure t
+  :after org
+  :hook (org-mode . org-bullets-mode)
+  :custom
+  (org-bullets-bullet-list '("◉" "○" "●" "○" "●" "○" "●"))
+)
+
+; Replace list hyphens with dots
+(font-lock-add-keywords 'org-mode
+			'(("^ *\\([-]\\) "
+			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "➤"))))))
+#+end_src
 
