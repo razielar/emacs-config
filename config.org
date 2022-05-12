@@ -475,8 +475,8 @@ A minimap sidebar displaying a smaller version of the current buffer on either t
 
 | COMMAND      | DESCRIPTION                               | KEYBINDING |
 |--------------+-------------------------------------------+------------|
-| minimap-mode | /Toggle minimap-mode/                       | C-c v      |
-
+| minimap-mode | /Toggle minimap-mode/                       | C-x v m    |
+ 
 #+begin_src emacs-lisp
 (use-package minimap
   :ensure t
@@ -484,12 +484,9 @@ A minimap sidebar displaying a smaller version of the current buffer on either t
   (setq minimap-window-location 'right)
 
 )
-(global-set-key (kbd "C-c v") 'minimap-mode)
+(global-set-key (kbd "C-x v m") 'minimap-mode)
 ;minimap-width-fraction
 ;minimap-active-region-background
 #+end_src
-
-
-
 
 
