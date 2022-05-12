@@ -66,7 +66,7 @@ When starting emacs, let's see a Dashboard. We observe the number of loaded pack
     (setq dashboard-items '((recents . 5)
 			    (agenda . 5 )
 			    (bookmarks . 3)
-			    (projects . 3)
+			    (projects . 5)
 			    (registers . 3)
     ))
     :config
@@ -457,4 +457,39 @@ Setup custom bullet list for ORG.
 			'(("^ *\\([-]\\) "
 			   (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "➤"))))))
 #+end_src
+
+* ADDITIONAL PACKAGES 
+
+** Beacon
+This packages helps in highlighting your cursor.
+#+begin_src emacs-lisp
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1)  
+)
+#+end_src
+
+** Minimap
+A minimap sidebar displaying a smaller version of the current buffer on either the left or right side.
+
+| COMMAND      | DESCRIPTION                               | KEYBINDING |
+|--------------+-------------------------------------------+------------|
+| minimap-mode | /Toggle minimap-mode/                       | C-c v      |
+
+#+begin_src emacs-lisp
+(use-package minimap
+  :ensure t
+  :config
+  (setq minimap-window-location 'right)
+
+)
+(global-set-key (kbd "C-c v") 'minimap-mode)
+;minimap-width-fraction
+;minimap-active-region-background
+#+end_src
+
+
+
+
 
