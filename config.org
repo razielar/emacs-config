@@ -237,19 +237,30 @@ Show and highlight the corresponding parenthesis. Additionally, add color to the
 
 * LANGUAGE SUPPORT
 
-Language support for markdown, dockerfiles, & yaml files.
+Language support for *markdown*, *dockerfiles*, *yaml-files*, & *scala*.
 #+begin_src emacs-lisp
+
+; markdown
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "multimarkdown"))
 
+; Dockerfile
 (use-package dockerfile-mode
   :ensure t
   :mode ("Dockerfile\\'" . dockerfile-mode))
 
+; yaml
 (use-package yaml-mode
   :ensure t)
+
+; Scala
+(use-package scala-mode
+  :ensure t
+  :interpreter
+    ("scala" . scala-mode)
+)
 #+end_src
 
 * R PROGRAMMING
@@ -258,6 +269,16 @@ To program with R in Emacs, we need ESS.
 #+begin_src emacs-lisp
 (use-package ess
   :ensure t)
+#+end_src
+
+Recommended settings for company
+#+begin_src emacs-lisp
+(setq ess-use-company t
+      company-selection-wrap-around t
+      company-tooltip-align-annotations t
+      company-idle-delay 0.36
+      company-minimum-prefix-length 2
+      company-tooltip-limit 10)
 #+end_src
 
 ** R custom functions
