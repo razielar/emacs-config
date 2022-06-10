@@ -1,4 +1,4 @@
-#+TITLE: EMACS Config
+#+TITLE: EMACS Config for Desktop-devices
 #+AUTHOR: Raziel Amador Rios
 
 * PACKAGE MANAGEMENT

@@ -1,0 +1,220 @@
+#+TITLE: EMACS Config for Edge-devices
+#+AUTHOR: Raziel Amador Rios
+
+* PACKAGE MANAGEMENT
+
+** Setup package.el to work with MELPA
+#+begin_src emacs-lisp
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+(package-refresh-contents)
+(package-initialize)
+#+end_src
+
+** Installing use-package
+#+begin_src emacs-lisp
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+#+end_src
+
+* WINDOW NAVIGATION 
+#+begin_src emacs-lisp
+(windmove-default-keybindings 'meta)
+#+end_src
+
+* GENERAL USER INTERFACE SETTINGS
+
+** Basic Emacs UI
+Show: line-numbers, & column-number. Disable: too-bar, toogle-bar, menu-bar, & emacs-startup-page. 
+#+begin_src emacs-lisp
+(global-display-line-numbers-mode) ; show line numbers
+(column-number-mode t) ; add column number
+(tool-bar-mode -1) ; disable tool bar
+(scroll-bar-mode -1)
+(menu-bar-mode -1) ; disable menu bar
+(setq inhibit-startup-screen t) ; inhibit emacs startup page
+#+end_src
+
+Truncate lines.
+#+begin_src emacs-lisp
+(global-visual-line-mode t)
+#+end_src
+
+** Modeline
+We are using doom-modeline. To work, we need all-the-icons, and then: M-x all-the-icons-install-fonts.
+#+begin_src emacs-lisp
+(use-package all-the-icons
+  :ensure t)
+
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+#+end_src
+
+
+* THEME
+
+We are using monokai-theme as theme. 
+#+begin_src emacs-lisp
+(use-package monokai-theme
+	     :ensure t
+	     :config
+	     (load-theme 'monokai t))
+#+end_src
+
+* GENERAL KEYBINDIGS
+
+Keybindings using general for buffers, and load file.
+#+begin_src emacs-lisp
+(use-package general
+  :ensure t)
+#+end_src
+
+* CORE EMACS FUNCTIONALITIES
+
+** Swiper
+Greatly improve search using swiper.
+#+begin_src emacs-lisp
+(use-package swiper
+  :ensure t
+  :bind (("C-s" . swiper)
+         ("C-r" . swiper)))
+#+end_src
+
+** COMPANY
+Company is a text completion framework for Emac. Use company mode in all buffers and turn off tooltips.
+#+begin_src emacs-lisp
+(use-package company
+  :ensure t
+  :config (setq company-frontends nil)
+  :init (add-hook 'after-init-hook 'global-company-mode))
+#+end_src
+
+** HEML 
+Helm is an Emacs incremental and narrowing framework. It helps to rapidly complete file names,and buffer names.
+#+begin_src emacs-lisp
+(use-package helm
+  :ensure t)
+
+(setq helm-split-window-in-side-p           t ; open helm buffer inside current window, not occupy whole other window
+      helm-move-to-line-cycle-in-source     t ; move to end or beginning of source when reaching top or bottom of source.
+      helm-ff-search-library-in-sexp        t ; search for library in `require' and `declare-function' sexp.
+      helm-scroll-amount                    8 ; scroll 8 lines other window using M-<next>/M-<prior>
+      helm-ff-file-name-history-use-recentf t
+      helm-echo-input-in-header-line t
+)
+
+(setq helm-autoresize-max-height 40) ;original value was 40
+(setq helm-autoresize-min-height 20)
+(helm-autoresize-mode 1)
+(define-key helm-map (kbd "TAB") 'helm-execute-persistent-action) ; rebind tab to do persistent action
+(define-key helm-map (kbd "C-i") 'helm-execute-persistent-action) ; make TAB works in terminal
+(define-key helm-map (kbd "C-z")  'helm-select-action) ; list actions using C-z
+#+end_src
+
+*** helm-M-x
+Configuration of helm-M-x, M-x key-biding, and make helm-M-x fuzzy. 
+#+begin_src emacs-lisp
+(global-set-key (kbd "M-x") 'helm-M-x)
+(setq helm-M-x-fuzzy-match t) ;; fuzzy matching for helm-M-x
+#+end_src
+
+*** helm-buffer-list
+Configuration of helm-mini for buffer-list.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x b") 'helm-buffers-list)
+(setq helm-buffers-fuzzy-matching t)
+#+end_src
+
+*** helm-find-file
+Configuration of helm-find-file for Find file.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(setq helm-semantic-fuzzy-match t
+      helm-imenu-fuzzy-match    t) 
+(setq helm-locate-fuzzy-match t)
+#+end_src
+
+*** helm-recentf
+Configuration of helm-recentf for recent-files.
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x r") 'helm-recentf)
+(setq helm-recentf-fuzzy-match t)
+#+end_src
+
+*** helm-show-kill-ring
+Configuration of *kill-ring* to easy copy-paste strings
+#+begin_src emacs-lisp
+(global-set-key (kbd "ESC y") 'helm-show-kill-ring)
+#+end_src
+
+* GENERAL SETUP FOR PROGRAMMING
+
+** Parenthesis
+Show and highlight the corresponding parenthesis. Additionally, add color to the parenthesis and allow autopairing. 
+#+begin_src emacs-lisp
+(use-package paren
+  :ensure t
+  :config
+  (show-paren-mode +1))
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+(use-package flex-autopair
+  :ensure t
+  :config
+  (flex-autopair-mode +1))
+#+end_src
+
+* LANGUAGE SUPPORT
+
+Language support for *markdown*, *dockerfiles*, and *yaml-files*.
+#+begin_src emacs-lisp
+; markdown
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+
+; Dockerfile
+(use-package dockerfile-mode
+  :ensure t
+  :mode ("Dockerfile\\'" . dockerfile-mode))
+
+; yaml
+(use-package yaml-mode
+  :ensure t)
+#+end_src
+
+* ADDITIONAL PACKAGES 
+
+** Beacon
+This packages helps in highlighting your cursor.
+#+begin_src emacs-lisp
+(use-package beacon
+  :ensure t
+  :config
+  (beacon-mode 1)  
+)
+#+end_src
+
+** Minimap
+A minimap sidebar displaying a smaller version of the current buffer on either the left or right side.
+
+| COMMAND      | DESCRIPTION                               | KEYBINDING |
+|--------------+-------------------------------------------+------------|
+| minimap-mode | /Toggle minimap-mode/                       | C-x v m    |
+ 
+#+begin_src emacs-lisp
+(use-package minimap
+  :ensure t
+  :config
+  (setq minimap-window-location 'right)
+
+)
+(global-set-key (kbd "C-x v m") 'minimap-mode)
+;minimap-width-fraction
+;minimap-active-region-background
+#+end_src
+
