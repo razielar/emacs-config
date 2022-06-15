@@ -8,4 +8,8 @@ In this repo, I have my emacs config for my **desktop-laptops** (`desktop`), and
 mv `init*.el``.emacs.d`  
 mv `config*.org` `.emacs.d`
 ```
+## Fonts
+
+After installing *all-the-icons*, do: **M-x all-the-icons-install-fonts**
+
 
