@@ -1,6 +1,6 @@
 (org-babel-load-file
  (expand-file-name
-  "config_edgeMachine.org"
+  "config.org"
   user-emacs-directory))
 
 
