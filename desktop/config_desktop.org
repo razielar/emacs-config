@@ -208,15 +208,20 @@ See Projects with Heml.
 
 ** Multiple-cursors
 Configuration to use multiple-cursors. To exit multiple-cursor: *C-g*
+
+| COMMAND      | DESCRIPTION                               | KEYBINDING |
+|--------------+-------------------------------------------+------------|
+| mc/edit-lines             |  Adds one cursor to each line in the current region                       | C-c s      |
+
 #+begin_src emacs-lisp
 (use-package multiple-cursors
 	     :ensure t)
 ; Multiple-cursors doesn't presume to know how you'd like them laid out
-;(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c s") 'mc/edit-lines)
 ; Add multiple cursors not based on continuous lines
-;(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-;(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-;(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 #+end_src
 
 * EMACS INFORMATION
@@ -522,5 +527,6 @@ A minimap sidebar displaying a smaller version of the current buffer on either t
 ;minimap-width-fraction
 ;minimap-active-region-background
 #+end_src
+
 
 
