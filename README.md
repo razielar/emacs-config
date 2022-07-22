@@ -12,4 +12,13 @@ mv `config*.org` `.emacs.d`
 
 After installing *all-the-icons*, do: **M-x all-the-icons-install-fonts**
 
+## Emacs as Daemon
+
+You can find the info [here](https://www.emacswiki.org/emacs/EmacsAsDaemon)  
+
+Then, use emacs as a client:
+
+``` bash
+emacs='emacsclient -c -a "emacs" &'
+```
 
