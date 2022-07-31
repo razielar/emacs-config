@@ -188,24 +188,6 @@ Configuration of *kill-ring* to easy copy-paste strings
 (global-set-key (kbd "ESC y") 'helm-show-kill-ring)
 #+end_src
 
-** Projectile
-To manage projects in Emacs. 
-#+begin_src emacs-lisp
-(use-package projectile
-	     :ensure t
-	     :config
-	     (projectile-global-mode 1))
-#+end_src
-
-** Helm-Projectile
-See Projects with Heml. 
-#+begin_src emacs-lisp
-;(use-package helm-projectile
-;	     :ensure t
-;)
-;(helm-projectile-on)
-#+end_src
-
 ** Multiple-cursors
 Configuration to use multiple-cursors. To exit multiple-cursor: *C-g*
 
@@ -251,6 +233,23 @@ Show and highlight the corresponding parenthesis. Additionally, add color to the
   :ensure t
   :config
   (flex-autopair-mode +1))
+#+end_src
+
+** Projectile
+Projectile manage projects in Emacs. 
+We map projectile function with: *C-c p*. In this computer, our git-repos are located in *~/Documents/git_rep*. Additionally, we integrate projectile with helm. 
+#+begin_src emacs-lisp
+(use-package projectile
+  :ensure t
+  :diminish projectile-mode
+  :config (projectile-mode)
+  :custom ((projectile-completion-system 'helm))
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :init
+  (when (file-directory-p "~/Documents/git_rep")
+    (setq projectile-project-search-path '("~/Documents/git_rep")))
+  (setq projectile-switch-project-action #'projectile-dired))
 #+end_src
 
 * LANGUAGE SUPPORT
@@ -527,6 +526,5 @@ A minimap sidebar displaying a smaller version of the current buffer on either t
 ;minimap-width-fraction
 ;minimap-active-region-background
 #+end_src
-
 
 
