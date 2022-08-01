@@ -190,10 +190,9 @@ Configuration of *kill-ring* to easy copy-paste strings
 
 ** Multiple-cursors
 Configuration to use multiple-cursors. To exit multiple-cursor: *C-g*
-
-| COMMAND      | DESCRIPTION                               | KEYBINDING |
-|--------------+-------------------------------------------+------------|
-| mc/edit-lines             |  Adds one cursor to each line in the current region                       | C-c s      |
+| COMMAND       | DESCRIPTION                                       | KEYBINDING |
+|---------------+---------------------------------------------------+------------|
+| mc/edit-lines | /Add one cursor to each line in the current region/ | C-c s      |
 
 #+begin_src emacs-lisp
 (use-package multiple-cursors
@@ -253,7 +252,14 @@ We map projectile function with: *C-c p*. In this computer, our git-repos are lo
 #+end_src
 
 ** Magit
-Is a Git interface for Emacs.
+Is a Git interface for Emacs. To access to *magit-status* do: *C-x g*, once there press *?* for more info. Important commands:
+| DESCRIPTION                               | KEYBINDING |
++-------------------------------------------+------------|
+| /Do the commit/                             | C-c C-c    |
+| /Undo the commit/                           | C-c k      |
+| /Stage file/                                | s          |
+| /Stage multiple files/                      | S          |
+
 #+begin_src emacs-lisp
 (use-package magit
   :ensure t
