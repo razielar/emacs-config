@@ -253,7 +253,7 @@ We map projectile function with: *C-c p*. In this computer, our git-repos are lo
 #+end_src
 
 ** Magit
-Is a git interface for Emacs.
+Is a Git interface for Emacs.
 #+begin_src emacs-lisp
 (use-package magit
   :ensure t
