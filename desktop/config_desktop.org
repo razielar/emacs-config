@@ -235,7 +235,7 @@ Show and highlight the corresponding parenthesis. Additionally, add color to the
 #+end_src
 
 ** Projectile
-Projectile manage projects in Emacs. 
+Projectile manage projects in Emacs.
 We map projectile function with: *C-c p*. In this computer, our git-repos are located in *~/Documents/git_rep*. Additionally, we integrate projectile with helm. 
 #+begin_src emacs-lisp
 (use-package projectile
@@ -254,7 +254,7 @@ We map projectile function with: *C-c p*. In this computer, our git-repos are lo
 ** Magit
 Is a Git interface for Emacs. To access to *magit-status* do: *C-x g*, once there press *?* for more info. Important commands:
 | DESCRIPTION                               | KEYBINDING |
-+-------------------------------------------+------------|
+|-------------------------------------------+------------|
 | /Do the commit/                             | C-c C-c    |
 | /Undo the commit/                           | C-c k      |
 | /Stage file/                                | s          |
