@@ -252,7 +252,7 @@ We map projectile function with: *C-c p*. In this computer, our git-repos are lo
 #+end_src
 
 ** Magit
-Is a Git interface for Emacs. To access to *magit-status* do: *C-x g*, once there press *?* for more info. Important commands:
+Is a Git interface for Emacs. To access to *magit-status* do: *C-x g*, once there press *?* for more info. Important key-bindings:
 | DESCRIPTION                               | KEYBINDING |
 |-------------------------------------------+------------|
 | /Do the commit/                             | C-c C-c    |
