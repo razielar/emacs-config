@@ -252,6 +252,16 @@ We map projectile function with: *C-c p*. In this computer, our git-repos are lo
   (setq projectile-switch-project-action #'projectile-dired))
 #+end_src
 
+** Magit
+Is a git interface for Emacs.
+#+begin_src emacs-lisp
+(use-package magit
+  :ensure t
+  :commands magit-status
+  :custom
+  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+#+end_src
+
 * LANGUAGE SUPPORT
 
 Language support for *markdown*, *dockerfiles*, *yaml-files*, & *scala*.
